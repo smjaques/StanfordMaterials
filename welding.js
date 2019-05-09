@@ -1,7 +1,5 @@
 // For full API documentation, including code examples, visit http://wix.to/94BuAAs
 import wixData from 'wix-data';
-import wixWindow from 'wix-window'
-
 
 $w.onReady(function () {
 	$w("#brazable").options = [
@@ -35,6 +33,12 @@ $w.onReady(() => {
 		search();
 	})
 	$w('#clear').onClick(()=> {
+		filter = wixData.filter();
+		$w("#brazable").selectedIndex = 0;
+		$w("#foodsafe").selectedIndex = 0;
+		$w("#cost").selectedIndex = 0;
+		$w("#machinable").selectedIndex = 0;
+		$w("#formable").selectedIndex = 0;	
 		$w('#brazable, #foodsafe, #cost, #machinable, #formable').value = "";
 		$w('#dataset1').setFilter(wixData.filter());
 		filter = filter.between("weldability05", 1, 6);
@@ -47,12 +51,12 @@ $w.onReady(() => {
 	//clear all button
 
 	function search() {
+		filter = wixData.filter();
 		let brazable = $w('#brazable').value;
 		let food = $w('#foodsafe').value;
 		let cost = $w('#cost').value;
 		let formable = $w('#formable').value;
 		let machinabile = $w('#machinable').value;
-		let local = wixWindow.locale;			
 
 		if (brazable && brazable !== 'all'){
 			if(brazable == "true"){
@@ -88,8 +92,8 @@ $w.onReady(() => {
 			filter = filter.between("formability05", lower, upper);
 		}
 		$w('#dataset1').setFilter(filter);
-		filter = filter.between("weldability05", 1, 6);
-		$w('#dataset1').setFilter(filter).then(count);
+		 filter = filter.between("weldability05", 1, 6);
+		 $w('#dataset1').setFilter(filter).then(count);
 
 	}
 
