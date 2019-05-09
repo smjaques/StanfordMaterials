@@ -28,6 +28,7 @@ $w.onReady(() => {
 	let filter = wixData.filter();
 	filter = filter.between("weldability05", 1, 6);
 	$w('#dataset1').setFilter(filter).then(count);
+	openingSort();
 
 	$w('#brazable, #foodsafe, #cost, #machinable, #formable').onChange(() => {
 		search();
@@ -125,5 +126,10 @@ $w.onReady(() => {
 			sortedBy = "Formability";
 		}
 		$w('#SortText').text = `Sorted by: ${sortedBy}`
+	}
+
+	function openingSort(){
+		$w('#dataset1').setSort(wixData.sort()
+			.ascending("weldability05"));
 	}
  });

@@ -1,5 +1,7 @@
 // For full API documentation, including code examples, visit http://wix.to/94BuAAs
 import wixData from 'wix-data';
+import wixWindow from 'wix-window';
+
 
 $w.onReady(function () {
 	$w("#brazable").options = [
@@ -20,26 +22,32 @@ $w.onReady(function () {
 		{"label": "Formability", "value": "formability05"}
 	];
 	$w("#sortby").placeholder = "Sort By";
-	$w("#SortText").text = "Sorted by: Machinability";
+	$w("#SortText").text = "Sorted by: Formability";
+
 });
 
 $w.onReady(() => {
 	let filter = wixData.filter();
-	filter = filter.between("machinability05", 1, 6);
+	filter = filter.between("weldability05", 1, 5);
 	$w('#dataset1').setFilter(filter).then(count);
 	openingSort();
 
-	$w('#brazable, #foodsafe, #cost, #weldable, #formable').onChange(() => {
+	$w('#brazable, #foodsafe, #cost, #machinable, #weldable').onChange(() => {
 		search();
 	})
-	
 	$w('#clear').onClick(()=> {
 		filter = wixData.filter();
-		$w('#brazable, #foodsafe, #cost, #weldable, #formable').value = "";
+		$w("#brazable").selectedIndex = 0;
+		$w("#foodsafe").selectedIndex = 0;
+		$w("#cost").selectedIndex = 0;
+		$w("#machinable").selectedIndex = 0;
+		$w("#weldable").selectedIndex = 0;
+		$w('#brazable, #foodsafe, #cost, #machinable, #weldable').value = "";
 		$w('#dataset1').setFilter(wixData.filter());
-		filter = filter.between("machinability05", 1, 6);
+		filter = filter.between("formability05", 1, 6);
 		$w('#dataset1').setFilter(filter).then(count);
 	})
+	
 	$w('#sortby').onChange(()=> {
 		newSort();
 	});
@@ -51,8 +59,9 @@ $w.onReady(() => {
 		let brazable = $w('#brazable').value;
 		let food = $w('#foodsafe').value;
 		let cost = $w('#cost').value;
-		let formable = $w('#formable').value;
 		let weldable = $w('#weldable').value;
+		let machinabile = $w('#machinable').value;
+		let local = wixWindow.locale;			
 
 		if (brazable && brazable !== 'all'){
 			if(brazable == "true"){
@@ -63,7 +72,7 @@ $w.onReady(() => {
 			}
 			filter = filter.eq("brazability01", brazable);
 		}
-
+	
 		if (food && food !== 'all'){
 			if(food == "true"){
 				food = true;
@@ -78,18 +87,20 @@ $w.onReady(() => {
 			let upper = Number(cost) + 1;
 			filter = filter.between("relativeCost05", lower, upper);
 		}
+		if (machinabile && machinabile !== 'all'){
+			let lower = Number(machinabile) - 1;
+			let upper = Number(machinabile) + 1;
+			filter = filter.between("machinability05", lower, upper);
+		}
+
 		if (weldable && weldable !== 'all'){
 			let lower = Number(weldable) - 1;
 			let upper = Number(weldable) + 1;
 			filter = filter.between("weldability05", lower, upper);
-		}
-		if (formable && formable !== 'all'){
-			let lower = Number(formable) - 1;
-			let upper = Number(formable) + 1;
-			filter = filter.eq("formability05", lower, upper);
-		}
+		}		
+
 		$w('#dataset1').setFilter(filter);
-		filter = filter.between("machinability05", 1, 6);
+		filter = filter.between("formability05", 1, 6);
 		$w('#dataset1').setFilter(filter).then(count);
 
 	}
@@ -127,5 +138,5 @@ $w.onReady(() => {
 	function openingSort(){
 		$w('#dataset1').setSort(wixData.sort()
 			.ascending("machinability05"));
-	}
+	}	
 });
