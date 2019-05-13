@@ -1,5 +1,7 @@
 // For full API documentation, including code examples, visit http://wix.to/94BuAAs
 import wixData from 'wix-data';
+import wixLocation from 'wix-location';
+import {session} from 'wix-storage';
 
 $w.onReady(function () {
 	$w("#brazable").options = [
@@ -47,6 +49,19 @@ $w.onReady(() => {
 	})
 	$w('#sortby').onChange(()=> {
 		newSort();
+	})
+	
+	$w("#table1").onRowSelect( (event) => {
+  		let rowData = event.rowData;
+		let url = "/welding-material-info";
+		//sending to pop up page
+		wixLocation.to(url);
+		session.setItem('material', rowData);
+	})
+
+	$w("#dataset1").onCurrentIndexChanged( (event) => {
+  		let itemData = $w("#dataset1").getCurrentItem();
+		console.log(itemData);
 	});
 
 	//clear all button
@@ -133,3 +148,11 @@ $w.onReady(() => {
 			.ascending("weldability05"));
 	}
  });
+
+// export function table1_rowSelect(event) {
+// 	let material = event.rowData;
+// 	let url = "/welding-material-info";
+// 	//sending to pop up page
+// 	wixLocation.to(url);
+// 	session.setItem('material', material);
+// }
