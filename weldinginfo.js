@@ -36,14 +36,14 @@ $w.onReady(() => {
 			let weldability = item["weldability05"];
 
 			if(foodsafe && foodsafe == false){
-				foodsafe = "Not Food Safe"
+				foodsafe = "Not Food Safe";
 			} else{
 				foodsafe = "Food Safe";
 			}
 			if(brazability && brazability == false){
-				brazability = "Not Brazable."
+				brazability = "Not Brazable";
 			} else{
-				brazability = "Brazable.";
+				brazability = "Brazable";
 			}
 
 			$w("#materialName").text = materialName;
@@ -56,6 +56,13 @@ $w.onReady(() => {
 			let hardDesc = `Hardness: ${hardness}`;
 			$w("#hardness").text = hardDesc;
 			let stiffDesc = `Stiffness: ${stiffness}`;
-			$w("#stiffness").text = stiffDesc;	
+			$w("#stiffness").text = stiffDesc;
+
+			if(materialName && materialName == "Acrylic"){
+				$w("#laserCut").text = "Laser Cuttable";
+			}	
+			else{
+				$w("#laserCut").text = "Not Laser Cuttable";
+			}
 		})
 });
