@@ -52,17 +52,15 @@ $w.onReady(() => {
 	})
 	
 	$w("#table1").onRowSelect( (event) => {
-  		let rowData = event.rowData;
+		let rowData = event.rowData;
+		console.log(rowData);
+		console.log(rowData["materials"]);
 		let url = "/welding-material-info";
+		session.setItem('material', rowData["materials"]);
 		//sending to pop up page
 		wixLocation.to(url);
-		session.setItem('material', rowData);
-	})
+});
 
-	$w("#dataset1").onCurrentIndexChanged( (event) => {
-  		let itemData = $w("#dataset1").getCurrentItem();
-		console.log(itemData);
-	});
 
 	//clear all button
 
@@ -148,11 +146,3 @@ $w.onReady(() => {
 			.ascending("weldability05"));
 	}
  });
-
-// export function table1_rowSelect(event) {
-// 	let material = event.rowData;
-// 	let url = "/welding-material-info";
-// 	//sending to pop up page
-// 	wixLocation.to(url);
-// 	session.setItem('material', material);
-// }

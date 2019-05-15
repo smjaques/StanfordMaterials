@@ -1,5 +1,7 @@
 // For full API documentation, including code examples, visit http://wix.to/94BuAAs
 import wixData from 'wix-data';
+import wixLocation from 'wix-location';
+import {session} from 'wix-Storage';
 
 $w.onReady(function () {
 	$w("#brazable").options = [
@@ -32,9 +34,13 @@ $w.onReady(() => {
 	$w('#brazable, #foodsafe, #cost, #weldable, #formable').onChange(() => {
 		search();
 	})
-	
 	$w('#clear').onClick(()=> {
 		filter = wixData.filter();
+		$w("#brazable").selectedIndex = 0;
+		$w("#foodsafe").selectedIndex = 0;
+		$w("#cost").selectedIndex = 0;
+		$w("#weldable").selectedIndex = 0;
+		$w("#formable").selectedIndex = 0;	
 		$w('#brazable, #foodsafe, #cost, #weldable, #formable').value = "";
 		$w('#dataset1').setFilter(wixData.filter());
 		filter = filter.between("machinability05", 1, 6);
@@ -42,7 +48,16 @@ $w.onReady(() => {
 	})
 	$w('#sortby').onChange(()=> {
 		newSort();
-	});
+	})
+
+	$w("#table1").onRowSelect( (event) => {
+		let rowData = event.rowData;
+		console.log(rowData);
+		console.log(rowData["materials"]);
+		let url = "/machining-material-info";
+		session.setItem('material', rowData["materials"]);
+		wixLocation.to(url);
+});
 
 	//clear all button
 
