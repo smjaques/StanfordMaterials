@@ -46,7 +46,7 @@ $w.onReady(() => {
 			}
 
 			$w("#materialName").text = materialName;
-			let description = `${materialName} is a ${general}`;
+			let description = `${general}`;
 			$w("#materialDesc").text = description;
 			$w("#foodDescr").text = foodsafe;
 			$w("#brazDesc").text = brazability;

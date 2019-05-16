@@ -1,6 +1,8 @@
 // For full API documentation, including code examples, visit http://wix.to/94BuAAs
 import wixData from 'wix-data';
 import wixWindow from 'wix-window';
+import wixLocation from 'wix-location';
+import {session} from 'wix-storage';
 
 $w.onReady(function () {
 	
@@ -17,7 +19,7 @@ $w.onReady(function () {
 		{"label": "Formability", "value": "formability05"}
 	];
 	$w("#sortby").placeholder = "Sort By";
-	$w("#SortText").text = "Sorted by: Machinability";
+	$w("#SortText").text = "Sorted by: Brazability";
 });
 
 $w.onReady(() => {
@@ -38,6 +40,17 @@ $w.onReady(() => {
 		$w('#dataset1').setFilter(wixData.filter());
 		filter = filter.eq("brazability01", true);
 		$w('#dataset1').setFilter(filter).then(count);
+	})
+	
+	$w('#sortby').onChange(() => {
+		newSort();
+	})
+	
+	$w("#table1").onRowSelect( (event) => {
+		let rowData = event.rowData;
+		let url = "/brazing-material-info";
+		session.setItem('material', rowData['materials']);
+		wixLocation.to(url);
 	});
 
 	//clear all button
@@ -94,5 +107,31 @@ $w.onReady(() => {
 		} else{
 			$w('#ResultsText').text = "No result found.";
 		}
+	}
+
+	function newSort() {
+		let sortby = $w('#sortby').value;
+		$w('#dataset1').setSort(wixData.sort()
+			.ascending(sortby));
+		displaySortedText(sortby);
+	}
+
+	function displaySortedText(sortby){
+			let sortedBy = "";
+		if(sortby == "weldability05"){
+			sortedBy = "Weldability";
+		}
+		else if (sortby == "relativeCost05"){
+			sortedBy = "Relative Cost";
+		}
+		else if (sortby == "formability05"){
+			sortedBy = "Formability";
+		}
+		$w('#SortText').text = `Sorted by: ${sortedBy}`
+	}
+
+	function openingSort(){
+		$w('#dataset1').setSort(wixData.sort()
+			.ascending("machinability05"));
 	}
 });

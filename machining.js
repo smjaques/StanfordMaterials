@@ -106,7 +106,6 @@ $w.onReady(() => {
 		$w('#dataset1').setFilter(filter);
 		filter = filter.between("machinability05", 1, 6);
 		$w('#dataset1').setFilter(filter).then(count);
-
 	}
 
 	function count() {
