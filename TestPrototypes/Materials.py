@@ -6,7 +6,7 @@ import pymysql.cursors
 #                           'waterResistance': 10,
 #                           'maleability': 1,
 #                           'weldability': 7 }
-def getMaterialInfo(categories):
+def get_material_info(categories):
     name = input("Name of Material: ")
     print("Please rank this material on a scale of 1 - 10 for each category\n")
     classificationDict = {}
@@ -53,18 +53,18 @@ def main():
             categories.append(col[0])
 
         categories = addCategory([], connection)
-#        materialDict = getMaterialInfo(categories)
+        materialDict = get_material_info(categories)
         #Adding the Material's data to the SQL Database
-#        for key, value in materialDict.items():
-#            sql = ("INSERT INTO MaterialDB (Name) Values (%s)")
-#            val = (key)
-#            cursor.execute(sql, val)
-#            connection.commit()
-#            for k, v in value.items():
-#                sql = ("UPDATE MaterialDB SET "+k+"=%s WHERE Name='"+key+"'")
-#                val = (v)
-#                cursor.execute(sql, val)
-#                connection.commit()
+        for key, value in materialDict.items():
+            sql = ("INSERT INTO MaterialDB (Name) Values (%s)")
+            val = (key)
+            cursor.execute(sql, val)
+            connection.commit()
+            for k, v in value.items():
+                sql = ("UPDATE MaterialDB SET "+k+"=%s WHERE Name='"+key+"'")
+                val = (v)
+                cursor.execute(sql, val)
+                connection.commit()
         connection.close()
 
 
