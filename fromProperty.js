@@ -1,3 +1,5 @@
+import wixLocation from 'wix-location';
+
 $w.onReady(function () {
 	$w('#costbox').hide();
 	$w('#costtext').hide();
@@ -96,4 +98,44 @@ export function hardness_mouseIn(event) {
 export function hardbox_mouseOut(event) {
 	$w('#hardbox').hide();
 	$w('#hardtext').hide();
+}
+
+export function costbox_click(event) {
+		let url = "/relative-cost";
+		wixLocation.to(url);
+}
+
+export function densitybox_click(event) {
+	let url = "/density";
+	wixLocation.to(url);
+}
+
+export function ductilebox_click(event) {
+	let url = "/ductility";
+	wixLocation.to(url);
+}
+
+export function conductbox_click(event) {
+	let url = "/conductivity";
+	wixLocation.to(url);
+}
+
+export function foodbox_click(event) {
+	let url = "/food-safe";
+	wixLocation.to(url);
+}
+
+export function chemicalbox_click(event) {
+	let url = "/chemical-resistance";
+	wixLocation.to(url);
+}
+
+export function corrosionbox_click(event) {
+	let url = "/corrosion-resistance";
+	wixLocation.to(url);
+}
+
+export function hardbox_click(event) {
+	let url = "/hardness";
+	wixLocation.to(url);
 }
