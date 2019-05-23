@@ -14,7 +14,6 @@ def getMaterialInfo(categories):
         rank = int(input(category + ": "))
         classificationDict[category] = rank
     materialDict = {name: classificationDict}
-    System.out.println("SMELLLL");
     return materialDict
 
 

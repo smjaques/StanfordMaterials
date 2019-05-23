@@ -1,0 +1,13 @@
+#!/bin/bash
+
+sonar-scanner \
+  -Dsonar.projectKey=smjaques_StafordMaterials \
+  -Dsonar.organization=smjaques-github \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=https://sonarcloud.io \
+  -Dsonar.login=09d1ef17a496867e4892dce72021bb156a08087b
+
+
+open -a "Safari" https://materialselectiong.wixsite.com/materialguide
+
+open -a "Safari" https://sonarcloud.io/dashboard?id=smjaques_StafordMaterials
