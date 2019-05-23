@@ -15,8 +15,9 @@ $w.onReady(function () {
 
 	$w("#sortby").options = [
 		{"label": "Relative Cost", "value": "relativeCost05"},
-		{"label": "Weldability", "value": "weldability05"},
-		{"label": "Formability", "value": "formability05"}
+		{"label": "Machinability", "value": "machinability05"},
+		{"label": "Formability", "value": "formability05"},
+		{"label": "Weldability", "value": "weldability05"}
 	];
 	$w("#sortby").placeholder = "Sort By";
 	$w("#SortText").text = "Sorted by: Brazability";
@@ -48,8 +49,9 @@ $w.onReady(() => {
 	
 	$w("#table1").onRowSelect( (event) => {
 		let rowData = event.rowData;
-		let url = "/brazing-material-info";
+		let url = "/material-info";
 		session.setItem('material', rowData['materials']);
+		session.setItem('page', "/brazing");		
 		wixLocation.to(url);
 	});
 
@@ -127,11 +129,10 @@ $w.onReady(() => {
 		else if (sortby == "formability05"){
 			sortedBy = "Formability";
 		}
+		else if (sortby == "machinability05"){
+			sortedBy = "Machinability";
+		}
 		$w('#SortText').text = `Sorted by: ${sortedBy}`
 	}
 
-	function openingSort(){
-		$w('#dataset1').setSort(wixData.sort()
-			.ascending("machinability05"));
-	}
 });

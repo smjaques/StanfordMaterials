@@ -23,12 +23,12 @@ $w.onReady(function () {
 		{"label": "Weldability", "value": "weldability05"}
 	];
 	$w("#sortby").placeholder = "Sort By";
-	$w("#SortText").text = "Sorted by: Weldability";
+	$w("#SortText").text = "Sorted by: Relative Cost";
 });
 
 $w.onReady(() => {
 	let filter = wixData.filter();
-	filter = filter.between("weldability05", 1, 6);
+	filter = filter.gt("relativeCost05", 0);
 	$w('#dataset1').setFilter(filter).then(count);
 	openingSort();
 
@@ -42,10 +42,9 @@ $w.onReady(() => {
 		$w("#cost").selectedIndex = 0;
 		$w("#machinable").selectedIndex = 0;
 		$w("#formable").selectedIndex = 0;	
-		$w('#brazable, #foodsafe, #cost, #machinable, #formable').value = "";
-		$w('#dataset1').setFilter(wixData.filter());
-		filter = filter.between("weldability05", 1, 6);
-		$w('#dataset1').setFilter(filter).then(count);
+		$w('#weldability').selectedIndex = 0;
+		$w('#brazable, #foodsafe, #cost, #machinable, #formable, #weldability').value = "";
+		$w('#dataset1').setFilter(wixData.filter()).then(count);
 	})
 	$w('#sortby').onChange(()=> {
 		newSort();
@@ -57,8 +56,8 @@ $w.onReady(() => {
 		console.log(rowData["materials"]);
 		let url = "/material-info";
 		session.setItem('material', rowData["materials"]);
+		session.setItem('page', '/relative-cost');
 		//sending to pop up page
-		session.setItem('page', "/welding");
 		wixLocation.to(url);
 });
 	function search() {
@@ -68,6 +67,7 @@ $w.onReady(() => {
 		let cost = $w('#cost').value;
 		let formable = $w('#formable').value;
 		let machinabile = $w('#machinable').value;
+		let weldability = $w('#weldability').value;
 
 		if (brazable && brazable !== 'all'){
 			if(brazable == "true"){
@@ -102,10 +102,15 @@ $w.onReady(() => {
 			let upper = Number(formable) + 1;
 			filter = filter.between("formability05", lower, upper);
 		}
-		$w('#dataset1').setFilter(filter);
-		 filter = filter.between("weldability05", 1, 6);
-		 $w('#dataset1').setFilter(filter).then(count);
 
+		if (weldability && weldability !== 'all'){
+			let lower = Number(weldability) - 1;
+			let upper = Number(weldability) + 1;
+			filter = filter.between("weldability05", lower, upper);
+		}
+		$w('#dataset1').setFilter(filter);
+		filter = filter.gt("relativeCost05", 0);
+		$w('#dataset1').setFilter(filter).then(count);
 	}
 
 	function count() {
@@ -143,6 +148,6 @@ $w.onReady(() => {
 
 	function openingSort(){
 		$w('#dataset1').setSort(wixData.sort()
-			.ascending("weldability05"));
+			.ascending("relativeCost05"));
 	}
  });
