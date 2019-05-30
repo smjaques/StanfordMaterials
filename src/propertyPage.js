@@ -23,7 +23,10 @@ $w.onReady(function () {
 		{"label": "Weldability", "value": "weldability05"}
 	];
 	$w("#sortby").placeholder = "Sort By";
-	$w("#SortText").text = "Sorted by: Relative Cost";
+	let property = session.getItem('clickedBox');
+	$w("#SortText").text = `Sorted by: ${property}`;
+	$w('#Header').text = `From a Property: ${property}`;
+	$w('#propDesc').text = `${property}`;
 });
 
 $w.onReady(() => {
@@ -45,6 +48,7 @@ $w.onReady(() => {
 		$w('#weldability').selectedIndex = 0;
 		$w('#brazable, #foodsafe, #cost, #machinable, #formable, #weldability').value = "";
 		$w('#dataset1').setFilter(wixData.filter()).then(count);
+		openingSort();
 	})
 	$w('#sortby').onChange(()=> {
 		newSort();
@@ -56,7 +60,7 @@ $w.onReady(() => {
 		console.log(rowData["materials"]);
 		let url = "/material-info";
 		session.setItem('material', rowData["materials"]);
-		session.setItem('page', '/relative-cost');
+		session.setItem('page', '/property-page');
 		//sending to pop up page
 		wixLocation.to(url);
 });
@@ -147,7 +151,12 @@ $w.onReady(() => {
 	}
 
 	function openingSort(){
+		let sort = session.getItem('sort');
+		filter = filter.gt("relativeCost05", 0);
+		let property = session.getItem('clickedBox');
+		$w('#dataset1').setFilter(filter).then(count);
 		$w('#dataset1').setSort(wixData.sort()
-			.ascending("relativeCost05"));
+			.ascending(sort));
+		$w('#SortText').text = `Sorted by: ${property}`;
 	}
  });
