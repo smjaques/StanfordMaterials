@@ -65,8 +65,6 @@ $w.onReady(() => {
 		let formable = $w('#formable').value;
 		let machinabile = $w('#machinable').value;
 
-		let local = wixWindow.locale;			
-
 		if (weldable && weldable !== 'all'){
 			let lower = Number(weldable) - 1;
 			let upper = Number(weldable) + 1;

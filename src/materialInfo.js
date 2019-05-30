@@ -21,16 +21,12 @@ $w.onReady(() => {
 			console.log(items);
      		let item = items[0];
 			console.log(item);
-			let cost = item["relativeCost05"];
-			let machinability = item["machinability05"];
 			let brazability = item["brazability01"];
-			let formability = item["formability05"];
 			let foodsafe = item["foodSafe01"];
 			let density = item["density"];
 			let hardness = item["hardness"];
 			let stiffness = item["stiffness"];
 			let general = item["generalMaterial"];
-			let weldability = item["weldability05"];
 
 			if(foodsafe && foodsafe == false){
 				foodsafe = "Not Food Safe";

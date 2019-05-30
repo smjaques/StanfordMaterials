@@ -2,40 +2,34 @@ import pymysql.cursors
 
 #parameters are the name of the material and a dictionary containing the
 #material classification information
-#i.e. clssificationDict = { 'sustainability': 10,
+#i.e. clssification_dict = { 'sustainability': 10,
 #                           'waterResistance': 10,
 #                           'maleability': 1,
 #                           'weldability': 7 }
 def get_material_info(categories):
     name = input("Name of Material: ")
     print("Please rank this material on a scale of 1 - 10 for each category\n")
-    classificationDict = {}
+    classification_dict = {}
     for category in categories:
         rank = int(input(category + ": "))
-        classificationDict[category] = rank
-    materialDict = {name: classificationDict}
-    return materialDict
+        classification_dict[category] = rank
+    material_dict = {name: classification_dict}
+    return material_dict
 
 
-def addCategory(existingCategories, connection):
-    newCategory = input('new Materical Classification Category to add: ')
-    if newCategory not in existingCategories:
-        existingCategories.append(newCategory)
-        print(existingCategories)
+def add_category(existing_categories, connection):
+    new_category = input('new Materical Classification Category to add: ')
+    if new_category not in existing_categories:
+        existing_categories.append(new_category)
+        print(existing_categories)
         with connection.cursor() as cursor:
-            sql = ('ALTER TABLE MaterialDB ADD ' + newCategory + ' INT;')
+            sql = ('ALTER TABLE MaterialDB ADD ' + new_category + ' INT;')
             cursor.execute(sql)
             connection.commit()
             
-        return existingCategories
-        
-
-
-
+        return existing_categories
 
 def main():
-    
-
     categories = ['sustainability', 'waterResistance', 'maleability', 'wedlability']
     categories = []
     # Connect to the database
@@ -53,9 +47,9 @@ def main():
             categories.append(col[0])
 
         categories = addCategory([], connection)
-        materialDict = get_material_info(categories)
+        material_dict = get_material_info(categories)
         #Adding the Material's data to the SQL Database
-        for key, value in materialDict.items():
+        for key, value in material_dict.items():
             sql = ("INSERT INTO MaterialDB (Name) Values (%s)")
             val = (key)
             cursor.execute(sql, val)

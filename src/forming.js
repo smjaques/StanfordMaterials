@@ -70,7 +70,6 @@ $w.onReady(() => {
 		let cost = $w('#cost').value;
 		let machinabile = $w('#machinable').value;
 		let weldable = $w('#weldable').value;
-		let local = wixWindow.locale;			
 
 		if (brazable && brazable !== 'all'){
 			if(brazable == "true"){
