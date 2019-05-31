@@ -1,5 +1,4 @@
 import wixLocation from 'wix-location';
-import {session} from 'wix-storage';
 
 $w.onReady(function () {
 	$w('#costbox').hide();
@@ -102,54 +101,41 @@ export function hardbox_mouseOut(event) {
 }
 
 export function costbox_click(event) {
-	session.setItem('clickedBox', 'Relative Cost');
-	session.setItem('sort', 'relativeCost05')
-	sendToPage();
+		let url = "/relative-cost";
+		wixLocation.to(url);
 }
 
 export function densitybox_click(event) {
-	session.setItem('clickedBox', 'Density');
-	session.setItem('sort', 'density')
-	sendToPage();	
+	let url = "/density";
+	wixLocation.to(url);
 }
 
 export function ductilebox_click(event) {
-	session.setItem('clickedBox', 'Ductility');
-	session.setItem('sort', 'ductility')
-	sendToPage();
+	let url = "/ductility";
+	wixLocation.to(url);
 }
 
 export function conductbox_click(event) {
-	session.setItem('clickedBox', 'Conductivity');
-	session.setItem('sort', 'conductivity')
-	sendToPage();
+	let url = "/conductivity";
+	wixLocation.to(url);
 }
 
 export function foodbox_click(event) {
-	session.setItem('clickedBox', 'Food Safe');
-	session.setItem('sort', 'foodSafe01')
-	sendToPage();
+	let url = "/food-safe";
+	wixLocation.to(url);
 }
 
 export function chemicalbox_click(event) {
-	session.setItem('clickedBox', 'Chemical Resistance');
-	session.setItem('sort', 'chemicalResistance')	
-	sendToPage();
+	let url = "/chemical-resistance";
+	wixLocation.to(url);
 }
 
 export function corrosionbox_click(event) {
-	session.setItem('clickedBox', 'Corrosion Resistance');
-	session.setItem('sort', 'corrosionResistance')
-	sendToPage();
+	let url = "/corrosion-resistance";
+	wixLocation.to(url);
 }
 
 export function hardbox_click(event) {
-	session.setItem('clickedBox', 'Hardness');
-	session.setItem('sort', 'hardness')
-	sendToPage();
-}
-
-export function sendToPage(){
-	let url = "/property-page";
+	let url = "/hardness";
 	wixLocation.to(url);
 }

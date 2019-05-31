@@ -3,5 +3,5 @@ projectKey=smjaques_StanfordMaterials
 serverUrl=https://sonarcloud.io
 serverVersion=7.8.0.25269
 dashboardUrl=https://sonarcloud.io/dashboard?id=smjaques_StanfordMaterials
-ceTaskId=AWsLC4cNrzkERloAprxa
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWsLC4cNrzkERloAprxa
+ceTaskId=AWsLDqA91j-PIqXcsccA
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWsLDqA91j-PIqXcsccA
