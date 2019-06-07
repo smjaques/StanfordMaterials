@@ -45,12 +45,6 @@ export function sendwithService(key, sender, recipient, subject, body) {
    .then(response => response.json());
 }
 
-function sendFormData(name, email, subject, body) {
-  const sub = `New Submission from ${subject}`;
-  const text = `Name: ${name}
-    \rEmail: ${email}
-    \rComments: ${body}`;
- 
   sendEmail(subject, body)
     .then(response => console.log(response)); 
 }
